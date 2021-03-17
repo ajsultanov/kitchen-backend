@@ -1,3 +1,2 @@
-class Api::V1::List < ApplicationRecord
-    belongs_to :user
+class List < ApplicationRecord
 end
