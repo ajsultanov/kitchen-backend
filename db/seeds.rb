@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+until User.all.count >= 10 
+    User.create(name: Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name, password: Faker::Ancient.unique.god)
+end 
