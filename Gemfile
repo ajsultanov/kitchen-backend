@@ -52,3 +52,9 @@ gem "jwt", "~> 2.2"
 
 # Generates specific, random data to test with
 gem "faker", "~> 2.17"
+
+# For securely configuring Rails apps
+gem "figaro"
+
+# For connecting to external API
+gem "rest-client"
