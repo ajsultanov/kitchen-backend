@@ -6,8 +6,21 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def search
-        # spoon = Spoon.new
-        # spoon.search(params)
+        spoon = Spoon.new
+        response = spoon.search(params[:query])
+        puts response
+        json = JSON.parse(response.body)
+        @results = json["results"].map { |r|
+            {
+                id: r["id"],
+                image: r["image"],
+                name: r["title"],
+                time: r["readyInMinutes"],
+                servings: r["servings"]
+            }
+        }
+
+        render json: @results, status: 200
     end
 
 end

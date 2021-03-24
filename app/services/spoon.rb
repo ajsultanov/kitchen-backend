@@ -1,17 +1,16 @@
 class Spoon
     include RestClient
-    url = 'https://api.spoonacular.com/'
-    api_key = ENV["spoon_key"]
+    @url = "https://api.spoonacular.com/"
+    @api_key = ENV["spoon_key"]
 
-    def search
-        keyword = params[:query]
-        response = RestClient.get "#{url}search/", params: {query: keyword, number: '1', apiKey: api_key}
+    def search(query)
+        response = RestClient.get "https://api.spoonacular.com/recipes/search/", params: {query: query, apiKey: ENV["spoon_key"]}
         response
     end
 
     def recipeInfo
         id = params[:recipe_id]
-        response = RestClient.get "#{url}recipes/#{id}/information", params: {apiKey: api_key}
+        response = RestClient.get "#{@url}recipes/#{id}/information", params: {apiKey: @api_key}
         response
     end
 end

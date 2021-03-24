@@ -58,3 +58,6 @@ gem "figaro"
 
 # For connecting to external API
 gem "rest-client"
+
+# For debugging
+gem "pry"
