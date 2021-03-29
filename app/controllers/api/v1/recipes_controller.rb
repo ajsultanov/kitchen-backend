@@ -5,6 +5,11 @@ class Api::V1::RecipesController < ApplicationController
         render json: @recipes
     end
 
+    def show
+        @recipe = Recipe.find(params[:id])
+        render json: @recipe, status: 200
+    end
+
     def search
         spoon = Spoon.new
         response = spoon.search(params[:query])
@@ -16,7 +21,8 @@ class Api::V1::RecipesController < ApplicationController
                 image: r["image"],
                 name: r["title"],
                 time: r["readyInMinutes"],
-                servings: r["servings"]
+                servings: r["servings"],
+                url: r["url"]
             }
         }
 

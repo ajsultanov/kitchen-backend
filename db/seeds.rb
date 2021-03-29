@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 until User.all.count >= 10 
-    User.create(name: Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name, password: Faker::Ancient.unique.god)
+    User.create(name: Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name, password: "banana")
 end 
 
 until List.all.count >= 5
@@ -30,10 +30,11 @@ until Recipe.all.count >= 5
         name: food,
         description: Faker::Food.unique.description, 
         author: Faker::Name.unique.name, 
-        steps: "1. Chop the #{ingredient1.downcase}, 2. Saute the #{ingredient2.downcase}, 3. Mix in the #{ingredient3.downcase}, 4. Serve hot",
+        steps: ["Chop the #{ingredient1.downcase}", "Saute the #{ingredient2.downcase}", "Mix in the #{ingredient3.downcase}", "Serve hot"],
         cook_time: prng.rand(10..90), 
         servings: prng.rand(2..12),
-        ingredients: ["1 oz #{ingredient1.downcase}", "2 #{ingredient2.downcase.pluralize(2)}", "1/4 tbsp #{ingredient3.downcase}"]
+        ingredients: ["1 oz #{ingredient1.downcase}", "2 #{ingredient2.downcase.pluralize(2)}", "1/4 tbsp #{ingredient3.downcase}"],
+        url: ""
     )
 end
 
