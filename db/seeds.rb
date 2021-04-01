@@ -6,11 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.create(name: "ad", password: "ad")
+
 until User.all.count >= 10 
     User.create(name: Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name, password: "banana")
 end 
 
-until List.all.count >= 5
+until List.all.count >= 10
     food = Faker::Food.unique.dish
     prng = Random.new
     List.create(
@@ -20,7 +22,17 @@ until List.all.count >= 5
     )
 end
 
-until Recipe.all.count >= 5
+5.times {
+    food = Faker::Food.unique.dish
+    prng = Random.new
+    List.create(
+        name: "#{food} Recipes", 
+        description: "Recipes on the theme of #{food}",
+        user_id: 1
+    )
+}
+
+until Recipe.all.count >= 10
     food = Faker::Food.unique.dish
     ingredient1 = Faker::Food.unique.ingredient
     ingredient2 = Faker::Food.unique.ingredient
@@ -38,7 +50,7 @@ until Recipe.all.count >= 5
     )
 end
 
-until ListRecipe.all.count >= 10
+until ListRecipe.all.count >= 20
     prng = Random.new
     ListRecipe.create(
         list_id: prng.rand(1..5),

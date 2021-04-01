@@ -4,4 +4,9 @@ class Api::V1::ListRecipeController < ApplicationController
         @listrecs = ListRecipe.all
         render json: @listrecs
     end
+
+    def show
+        @listrec = ListRecipe.find(params[:id])
+        render json: @listrec
+    end
 end

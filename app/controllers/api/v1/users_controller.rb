@@ -12,17 +12,23 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def profile
-        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+        render json: { user: Api::V1::UserSerializer.new(current_user) }, status: :accepted
     end
 
     def create
+        if User.find_by(name: user_params[:name])
+            render json: { message: 'Username already exists' }, status: :unprocessable_entity
+            return
+        end
+
         @user = User.create(user_params)
+        @serializer = Api::V1::UserSerializer.new(@user)
         if @user.valid?
             token = encode_token(user_id: @user.id)
             # render json: @user, status: :accepted
-            render json: { user: UserSerializer.new(@user), jwt: token }, status: :created
+            render json: { user: @serializer, jwt: token }, status: :created
         else
-            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+            render json: { message: 'Error creating user' }, status: :unprocessable_entity
         end
     end
 

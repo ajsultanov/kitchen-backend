@@ -4,8 +4,9 @@ Rails.application.routes.draw do
           resources :users, only: [:index, :create, :show]
           resources :lists, only: [:index, :create, :show]
           resources :recipes, only: [:index, :show]
-          get '/listRecipes', to: 'list_recipe#index'
           post '/login', to: 'auth#create'
+          get '/listRecipes', to: 'list_recipe#index'
+          get '/listRecipes/:id', to: 'list_recipe#show'
           get '/search/:query', to: 'recipes#search'
     end
   end
