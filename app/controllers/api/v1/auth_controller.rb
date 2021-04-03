@@ -9,7 +9,7 @@ class Api::V1::AuthController < ApplicationController
 
             # encode token comes from ApplicationController
             token = encode_token({ user_id: @user.id })
-            render json: { user: Api::V1::UserSerializer.new(@user), jwt: token }, status: :accepted
+            render json: { user: @user, jwt: token }, status: :accepted
         else
             render json: { message: 'Invalid username or password' }, status: :unauthorized
         end
