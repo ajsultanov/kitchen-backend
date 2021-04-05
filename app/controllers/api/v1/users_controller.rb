@@ -11,6 +11,7 @@ class Api::V1::UsersController < ApplicationController
         render json: @user, status: 200
     end
 
+    # what's this?
     def profile
         render json: { user: Api::V1::UserSerializer.new(current_user) }, status: :accepted
     end
@@ -22,10 +23,8 @@ class Api::V1::UsersController < ApplicationController
         end
 
         @user = User.create(user_params)
-        # @serializer = Api::V1::UserSerializer.new(@user)
         if @user.valid?
             token = encode_token(user_id: @user.id)
-            # render json: @user, status: :accepted
             render json: { user: @user, jwt: token }, status: :created
         else
             render json: { message: 'Error creating user' }, status: :unprocessable_entity

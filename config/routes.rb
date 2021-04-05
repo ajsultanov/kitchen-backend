@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-          resources :users, only: [:index, :create, :show]
-          resources :lists, only: [:index, :create, :show]
-          resources :recipes, only: [:index, :show]
+          resources :users, only: [:index, :create, :show] do
+            resources :lists, only: [:index, :create, :show]
+          end 
+          resources :recipes, only: [:index, :create, :show]
           post '/login', to: 'auth#create'
-          get '/listRecipes', to: 'list_recipe#index'
-          get '/listRecipes/:id', to: 'list_recipe#show'
+          get '/auto_login', to: 'auth#auto_login'
           get '/search/:query', to: 'recipes#search'
     end
   end
