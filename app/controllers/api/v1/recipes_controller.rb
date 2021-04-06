@@ -22,11 +22,12 @@ class Api::V1::RecipesController < ApplicationController
                 name: r["title"],
                 time: r["readyInMinutes"],
                 servings: r["servings"],
-                url: r["url"]
+                url: r["sourceUrl"]
             }
         }
+        totalResults = json["totalResults"]
 
-        render json: @results, status: 200
+        render json: { results: @results, total: totalResults }, status: 200
     end
 
 end

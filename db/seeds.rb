@@ -31,8 +31,6 @@ until List.all.count >= 10
     )
 end
 
-
-
 until Recipe.all.count >= 10
     food = Faker::Food.unique.dish
     ingredient1 = Faker::Food.unique.ingredient
