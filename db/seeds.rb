@@ -12,6 +12,15 @@ until User.all.count >= 10
     User.create(name: Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name, password: "banana")
 end 
 
+5.times {
+    food = Faker::Food.unique.dish
+    List.create(
+        name: "#{food} Recipes", 
+        description: "Recipes on the theme of #{food}",
+        user_id: 1
+    )
+}
+
 until List.all.count >= 10
     food = Faker::Food.unique.dish
     prng = Random.new
@@ -22,15 +31,7 @@ until List.all.count >= 10
     )
 end
 
-5.times {
-    food = Faker::Food.unique.dish
-    prng = Random.new
-    List.create(
-        name: "#{food} Recipes", 
-        description: "Recipes on the theme of #{food}",
-        user_id: 1
-    )
-}
+
 
 until Recipe.all.count >= 10
     food = Faker::Food.unique.dish
@@ -50,13 +51,22 @@ until Recipe.all.count >= 10
     )
 end
 
+5.times { |i|
+    ListRecipe.create(
+        list_id: 1,
+        recipe_id: i
+    )
+}
+
 until ListRecipe.all.count >= 20
     prng = Random.new
     ListRecipe.create(
-        list_id: prng.rand(1..5),
-        recipe_id: prng.rand(1..5)
+        list_id: prng.rand(1..10),
+        recipe_id: prng.rand(1..10)
     )
 end
+
+
 
 # response = RestClient.get 'https://api.spoonacular.com/recipes/search', params: {query: 'pasta', number: '1', includeInstruction: 'true', apiKey: ENV["spoon_key"]}
 # response = RestClient.get 'https://api.spoonacular.com/recipes/716429/information', params: {includeNutrition: 'false', apiKey: ENV["spoon_key"]}
