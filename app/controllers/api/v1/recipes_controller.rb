@@ -7,6 +7,7 @@ class Api::V1::RecipesController < ApplicationController
 
     def show
         @recipe = Recipe.find(params[:id])
+        puts @recipe
         render json: @recipe, status: 200
     end
 
