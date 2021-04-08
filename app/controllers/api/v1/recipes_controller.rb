@@ -31,9 +31,8 @@ class Api::V1::RecipesController < ApplicationController
     def search
         spoon = Spoon.new
         response = spoon.search(params[:query])
-        puts response
         json = JSON.parse(response.body)
-        @results = json["results"].map { |r|
+        results = json["results"].map { |r|
             {
                 id: r["id"],
                 image: r["image"],
@@ -45,7 +44,28 @@ class Api::V1::RecipesController < ApplicationController
         }
         totalResults = json["totalResults"]
 
-        render json: { results: @results, total: totalResults }, status: 200
+        render json: { results: results, total: totalResults }, status: 200
+    end
+
+    def get_info
+        spoon = Spoon.new
+        response = spoon.recipeInfo(params[:id])
+        json = JSON.parse(response.body)
+        result = {
+            name: json["title"],
+            description: json["summary"],
+            cook_time: json["readyInMinutes"],
+            servings: json["servings"],
+            url: json["sourceUrl"],
+            ingredients: json["extendedIngredients"].map { |i|
+                i["original"]
+            },
+            steps: json["analyzedInstructions"][0]["steps"].map { |s|
+                s["step"]
+            }
+        }
+
+        render json: result, status: 200
     end
 
     private
@@ -53,6 +73,7 @@ class Api::V1::RecipesController < ApplicationController
     def recipe_params
         params.require(:recipe).permit(
             :name, 
+            :description,
             :author, 
             :cook_time, 
             :servings, 
