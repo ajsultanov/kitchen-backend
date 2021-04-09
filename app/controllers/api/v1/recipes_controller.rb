@@ -1,4 +1,5 @@
 class Api::V1::RecipesController < ApplicationController
+    before_action :find_recipe, only: [:show, :update, :delete]
 
     def index 
         @recipes = Recipe.all
@@ -6,7 +7,6 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def show
-        @recipe = Recipe.find(params[:id])
         puts @recipe
         render json: @recipe, status: 200
     end
@@ -26,7 +26,16 @@ class Api::V1::RecipesController < ApplicationController
         else
             render json: { message: 'Error creating creating' }, status: :unprocessable_entity
         end
+    end
 
+    def update
+        @recipe.update(recipe_params)
+        render json: @recipe, status: :accepted
+    end
+
+    def delete
+        @recipe.destroy
+        render json: { message: "Recipe deleted"}, status: 200
     end
 
     def search
@@ -82,5 +91,9 @@ class Api::V1::RecipesController < ApplicationController
             ingredients: [], 
             steps: []
         )
+    end
+
+    def find_recipe
+        @recipe = Recipe.find(params[:id])
     end
 end
