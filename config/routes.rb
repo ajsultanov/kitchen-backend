@@ -4,7 +4,7 @@ Rails.application.routes.draw do
           resources :users, only: [:index, :create, :show] do
             resources :lists, only: [:index, :create, :show]
           end 
-          resources :recipes, only: [:index, :create, :show, :update, :delete]
+          resources :recipes, only: [:index, :create, :show, :update, :destroy]
           post '/login', to: 'auth#create'
           get '/auto_login', to: 'auth#auto_login'
           get '/search/:query', to: 'recipes#search'

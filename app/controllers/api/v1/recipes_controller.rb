@@ -1,5 +1,5 @@
 class Api::V1::RecipesController < ApplicationController
-    before_action :find_recipe, only: [:show, :update, :delete]
+    before_action :find_recipe, only: [:show, :update, :destroy]
 
     def index 
         @recipes = Recipe.all
@@ -7,6 +7,7 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def show
+        puts "recipe:" 
         puts @recipe
         render json: @recipe, status: 200
     end
@@ -33,7 +34,8 @@ class Api::V1::RecipesController < ApplicationController
         render json: @recipe, status: :accepted
     end
 
-    def delete
+    def destroy
+        puts "DESTROYIN A RECIPE HERE"
         @recipe.destroy
         render json: { message: "Recipe deleted"}, status: 200
     end
