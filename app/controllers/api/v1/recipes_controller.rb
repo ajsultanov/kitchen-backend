@@ -7,8 +7,8 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def show
-        puts "recipe:" 
-        puts @recipe
+        puts "recipe desc:" 
+        puts @recipe.description
         render json: @recipe, status: 200
     end
 
@@ -31,11 +31,14 @@ class Api::V1::RecipesController < ApplicationController
 
     def update
         @recipe.update(recipe_params)
-        render json: @recipe, status: :accepted
+        @lr = ListRecipe.find_by(recipe_id: params[:id], list_id: params[:list_id])
+        if params[:list_id] != params[:new_list_id] 
+            @lr.update(list_id: params[:new_list_id])
+        end
+        render json: { recipe: @recipe, listId: @lr.list_id }, status: :accepted
     end
 
     def destroy
-        puts "DESTROYIN A RECIPE HERE"
         @recipe.destroy
         render json: { message: "Recipe deleted"}, status: 200
     end
