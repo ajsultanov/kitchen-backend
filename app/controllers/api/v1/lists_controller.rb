@@ -19,6 +19,12 @@ class Api::V1::ListsController < ApplicationController
         end
     end
 
+    def destroy
+        @list = List.find(params[:id])
+        @list.destroy
+        render json: { message: "List deleted"}, status: 200
+    end
+
     private
 
     def list_params
