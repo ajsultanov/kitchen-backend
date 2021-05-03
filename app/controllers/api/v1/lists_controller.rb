@@ -19,6 +19,12 @@ class Api::V1::ListsController < ApplicationController
         end
     end
 
+    def update
+        @list = List.find(params[:id])
+        @list.update(list_params)
+        render json: { list: @list }, status: :accepted
+    end
+
     def destroy
         @list = List.find(params[:id])
         @list.destroy
