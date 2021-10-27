@@ -4,7 +4,7 @@ Search millions of recipes, find and save the ones you like to your lists. Creat
 
 Build using functional React with Semantic UI components. State implemented with Hooks, using a Rails API back end and PostgreSQL database. Queries the Spoonacular API for recipes and metadata.
 
-[Check out the front end code](https://github.com/ajsultanov/kitchen-frontend "Kitchenette App front end repo")
+###[Check out the front end code ➡︎](https://github.com/ajsultanov/kitchen-frontend "Kitchenette App front end repo")
 
 ## Features
 - Login
